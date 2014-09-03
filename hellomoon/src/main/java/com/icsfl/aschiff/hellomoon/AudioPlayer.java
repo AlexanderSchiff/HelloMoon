@@ -4,38 +4,48 @@ import android.content.Context;
 import android.media.MediaPlayer;
 
 /**
- * Created by aschiff on 9/2/2014.
+ * Created by aschiff on 9/3/2014.
  */
 public class AudioPlayer {
+    private String mStatus = "stopped";
     private MediaPlayer mMediaPlayer;
-    private boolean isPaused = false;
 
-    public void pause() {
-        if (mMediaPlayer != null) {
-            mMediaPlayer.pause();
-            isPaused = true;
-        }
+    public String getStatus() {
+        return mStatus;
+    }
+
+    public void setStatus(String status) {
+        mStatus = status;
     }
 
     public void play(Context context) {
-        if (!isPaused) {
+        if (!getStatus().equals("paused")) {
             stop();
             mMediaPlayer = MediaPlayer.create(context, R.raw.one_small_step);
         }
+        setStatus("playing");
+        mMediaPlayer.start();
         mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 stop();
             }
         });
-        mMediaPlayer.start();
-        isPaused = false;
     }
+
+
+    public void pause() {
+        if (mMediaPlayer != null) {
+            setStatus("paused");
+            mMediaPlayer.pause();
+        }
+    }
+
     public void stop() {
         if (mMediaPlayer != null) {
+            setStatus("stopped");
             mMediaPlayer.release();
             mMediaPlayer = null;
-            isPaused = false;
         }
     }
 }

@@ -2,8 +2,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView android:src="@drawable/armstrong_on_moon"
+    <ImageView android:id="@+id/image"
                android:contentDescription="@string/hellomoon_description"
+               android:src="@drawable/armstrong_on_moon"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:scaleType="centerInside"
